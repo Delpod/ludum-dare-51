@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float hitDistance = 1.75f;
     [SerializeField] float hitDelay = 0.2f;
     [SerializeField] float attackDelay = 1f;
+    [SerializeField] bool destroyOnCollisionWithPlayer = false;
 
     private Player player;
     private float activeDelay = -1f;
@@ -74,14 +75,21 @@ public class Enemy : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag(Strings.TAG_PLAYER)) {
             player.GetDamage(damage);
+            if (destroyOnCollisionWithPlayer) {
+                HandleDeath();
+            }
         }
+    }
+
+    private void HandleDeath() {
+        Destroy(gameObject);
     }
 
     public void GetDamage(int damage) {
         health -= damage;
         
         if (health <= 0) {
-            Destroy(gameObject);
+            HandleDeath();
             return;
         }
 
