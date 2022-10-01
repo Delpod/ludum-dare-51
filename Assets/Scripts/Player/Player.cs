@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-        if (InputManager.instance.playerInput.actions[Strings.PLAYER_FIRE].ReadValue<float>() > 0) {
+        if (InputManager.instance.playerInput.actions[Strings.PLAYER_FIRE].triggered) {
             currentCharacter.Attack();
         }
     }

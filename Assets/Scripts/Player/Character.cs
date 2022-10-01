@@ -28,10 +28,16 @@ public class Character : MonoBehaviour {
 
     public void Update() {
         if (delay > 0f) {
-            delay -= Time.deltaTime;
+            if (!isAttacking) {
+                delay -= Time.deltaTime;
+            }
             currentSpeed = movementAttackSpeed;
         } else {
             currentSpeed = movementSpeed;
+        }
+
+        if (isAttacking) {
+            return;
         }
 
         if (InputManager.instance.playerInput.currentControlScheme != Strings.SCHEME_KEYBOARD_MOUSE) {
@@ -50,4 +56,11 @@ public class Character : MonoBehaviour {
         }
     }
 
+    public void StopRotation() {
+        isAttacking = true;
+    }
+
+    public void StartRotation() {
+        isAttacking = false;
+    }
 }
