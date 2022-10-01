@@ -3,6 +3,10 @@ public static class Strings {
     public static readonly string TAG_PLAYER = "Player";
 
     public static readonly string TRIGGER_ATTACK = "Attack";
+    public static readonly string TRIGGER_WALKING = "Walking";
+
+    public static readonly string SHADER_GUI_TEXT = "GUI/Text Shader";
+    public static readonly string SHADER_URP = "Universal Render Pipeline/2D/Sprite-Lit-Default";
 
     public static readonly string PLAYER_MOVE = "Player/Move";
     public static readonly string PLAYER_LOOK = "Player/Look";

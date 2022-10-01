@@ -30,6 +30,8 @@ public class Player : MonoBehaviour {
     }
 
     public void GetDamage(int damage) {
+        print("hit");
+
         health -= damage;
 
         if (health < 0f) {

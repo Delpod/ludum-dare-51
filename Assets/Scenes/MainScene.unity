@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 115006136}
   - component: {fileID: 115006135}
   - component: {fileID: 115006134}
+  - component: {fileID: 115006137}
   - component: {fileID: 115006132}
   m_Layer: 3
   m_Name: Monster1
@@ -273,6 +274,9 @@ MonoBehaviour:
   damage: 10
   health: 100
   stopDistance: 1.1
+  hitDistance: 1.75
+  hitDelay: 0.25
+  attackDelay: 1
 --- !u!58 &115006134
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -356,6 +360,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &115006137
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115006131}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 59d25c20d9ee92e439b0a2bcf84a5c8a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &132986075
 GameObject:
   m_ObjectHideFlags: 3
@@ -508,9 +532,9 @@ GameObject:
   - component: {fileID: 272682873}
   - component: {fileID: 272682872}
   - component: {fileID: 272682874}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Tilemap
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3851,8 +3875,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterList:
-  - {fileID: 406734240}
   - {fileID: 868487226}
+  - {fileID: 406734240}
   health: 100
 --- !u!4 &870702503
 Transform:
