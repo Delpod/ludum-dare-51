@@ -1,3 +1,4 @@
+using Pathfinding;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
@@ -19,11 +20,16 @@ public class Enemy : MonoBehaviour {
     private bool rendererChanged = true;
     private Animator animator;
     private bool isAttacking = false;
+    private AIPath aiPath;
+    private AIDestinationSetter aiDestinationSetter;
 
     private void Start() {
+        aiDestinationSetter = GetComponent<AIDestinationSetter>();
+        aiPath = GetComponent<AIPath>();
         animator = GetComponent<Animator>();
         myRenderer = GetComponent<SpriteRenderer>();
         player = FindObjectOfType<Player>();
+        aiDestinationSetter.target = player.transform;
         shaderGUIText = Shader.Find(Strings.SHADER_GUI_TEXT);
         URPShader = Shader.Find(Strings.SHADER_URP);
     }
@@ -36,6 +42,7 @@ public class Enemy : MonoBehaviour {
             myRenderer.material.shader = URPShader;
             rendererChanged = true;
             animator.enabled = true;
+            aiPath.canMove = true;
         }
 
         if (activeAttackDelay > 0f) {
@@ -47,7 +54,6 @@ public class Enemy : MonoBehaviour {
         }
 
         if (Vector3.SqrMagnitude(transform.position - player.transform.position) > (stopDistance * stopDistance)) {
-            transform.position = new Vector3(Mathf.MoveTowards(transform.position.x, player.transform.position.x, Time.deltaTime * walkSpeed), Mathf.MoveTowards(transform.position.y, player.transform.position.y, Time.deltaTime * walkSpeed), 0f);
             animator.SetBool(Strings.TRIGGER_WALKING, true);
         } else if (activeAttackDelay <= 0f) {
             StartAttack();
@@ -62,6 +68,7 @@ public class Enemy : MonoBehaviour {
 
     private void StartAttack() {
         isAttacking = true;
+        aiPath.enabled = false;
         animator.SetTrigger(Strings.TRIGGER_ATTACK);
     }
 
@@ -73,16 +80,15 @@ public class Enemy : MonoBehaviour {
 
     public void FinishAttack() {
         isAttacking = false;
+        aiPath.enabled = true;
         activeAttackDelay = attackDelay;
         animator.SetBool(Strings.TRIGGER_WALKING, false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag(Strings.TAG_PLAYER)) {
+        if (destroyOnCollisionWithPlayer && collision.collider.CompareTag(Strings.TAG_PLAYER)) {
             player.GetDamage(damage);
-            if (destroyOnCollisionWithPlayer) {
-                HandleDeath();
-            }
+            HandleDeath();
         }
     }
 
@@ -102,5 +108,6 @@ public class Enemy : MonoBehaviour {
         rendererChanged = false;
         myRenderer.material.shader = shaderGUIText;
         animator.enabled = false;
+        aiPath.canMove = false;
     }
 }
