@@ -64,4 +64,10 @@ public class Character : MonoBehaviour {
     public void StartRotation() {
         isAttacking = false;
     }
+
+    public void ZeroAnimations() {
+        isAttacking = false;
+        currentSpeed = movementSpeed;
+        weapon.ZeroAnimations();
+    }
 }

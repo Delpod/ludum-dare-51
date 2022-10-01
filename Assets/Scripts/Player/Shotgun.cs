@@ -20,4 +20,8 @@ public class Shotgun : Weapon {
         go.GetComponent<Rigidbody2D>().AddForce(go.transform.up * bulletSpeed)
         ;
     }
+
+    public override void ZeroAnimations() {
+        animator.SetTrigger(Strings.TRIGGER_FORCE_IDLE);
+    }
 }

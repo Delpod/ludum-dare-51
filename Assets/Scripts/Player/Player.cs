@@ -52,6 +52,8 @@ public class Player : MonoBehaviour {
             ++currentCharacterId;
         }
 
+        currentCharacter.ZeroAnimations();
+
         SetCharacterActive();
     }
 }

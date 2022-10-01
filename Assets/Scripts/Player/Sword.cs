@@ -15,4 +15,8 @@ public class Sword : Weapon {
     public void AttackFinished() {
         transform.parent.GetComponent<Character>().StartRotation();
     }
+    
+    public override void ZeroAnimations() {
+        animator.SetTrigger(Strings.TRIGGER_FORCE_IDLE);
+    }
 }
