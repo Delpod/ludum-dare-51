@@ -17,7 +17,7 @@ public class Sword : Weapon {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag(Strings.TAG_ENEMY)) {
-
+            // TODO: Hitting enemy
         }
     }
 }

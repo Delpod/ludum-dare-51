@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 public class Character : MonoBehaviour {
     [SerializeField] Sprite sprite;
     [SerializeField] Weapon weapon;
-    [SerializeField] float movementSpeed = 8f;
-    [SerializeField] float movementAttackSpeed = 8f;
+    [SerializeField] float movementSpeed = 6f;
+    [SerializeField] float movementAttackSpeed = 6f;
+    [SerializeField] float changeSpeed = 20f;
     [SerializeField] float attackDelay = 0.5f;
 
     public float currentSpeed = 10f;
@@ -31,9 +32,9 @@ public class Character : MonoBehaviour {
             if (!isAttacking) {
                 delay -= Time.deltaTime;
             }
-            currentSpeed = movementAttackSpeed;
+            currentSpeed = Mathf.MoveTowards(currentSpeed, movementAttackSpeed, Time.deltaTime * changeSpeed);
         } else {
-            currentSpeed = movementSpeed;
+            currentSpeed = Mathf.MoveTowards(currentSpeed, movementSpeed, Time.deltaTime * changeSpeed);
         }
 
         if (isAttacking) {
@@ -46,13 +47,13 @@ public class Character : MonoBehaviour {
                 mousePos = tmpPos;
             }
 
-            weapon.transform.rotation = Quaternion.Euler(0f, 0f, -Mathf.Sign(mousePos.x) * Vector3.Angle(transform.up, transform.position + new Vector3(mousePos.x, mousePos.y)));
+            weapon.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.MoveTowardsAngle(weapon.transform.eulerAngles.z, -Mathf.Sign(mousePos.x) * Vector3.Angle(transform.up, transform.position + new Vector3(mousePos.x, mousePos.y)), 1080f * Time.deltaTime));
         } else {
             Vector2 mousePos = mainCamera.ScreenToViewportPoint(Mouse.current.position.ReadValue());
             Vector3 dir = new Vector3(mousePos.x, mousePos.y) - mainCamera.WorldToViewportPoint(transform.position);
             dir.z = 0f;
 
-            weapon.transform.rotation = Quaternion.Euler(0f, 0f, -Mathf.Sign(dir.x) * Vector3.Angle(transform.up, dir));
+            weapon.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(dir.x) * Vector3.Angle(transform.up, dir), 1080f * Time.deltaTime));
         }
     }
 
