@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
         if (instance == null || this == instance) {
             DontDestroyOnLoad(gameObject);
             instance = this;
+            Time.timeScale = 0f;
+            InputManager.instance.playerInput.SwitchCurrentActionMap(Strings.ACTION_MAP_UI);
         } else {
             Destroy(this);
             return;
@@ -18,6 +20,10 @@ public class GameManager : MonoBehaviour {
     }
 
     static public void StartGame() {
+        Time.timeScale = 1f;
+        InputManager.instance.playerInput.SwitchCurrentActionMap(Strings.ACTION_MAP_PLAYER);
+        UIManager.instance.startMenuCanvas.gameObject.SetActive(false);
+        UIManager.instance.ingameUICanvas.gameObject.SetActive(true);
         state = GameState.Playing;
     }
 

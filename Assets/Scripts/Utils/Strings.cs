@@ -5,6 +5,9 @@ public static class Strings {
     public static readonly string TRIGGER_ATTACK = "Attack";
     public static readonly string TRIGGER_WALKING = "Walking";
 
+    public static readonly string ACTION_MAP_UI = "UI";
+    public static readonly string ACTION_MAP_PLAYER = "Player";
+
     public static readonly string SHADER_GUI_TEXT = "GUI/Text Shader";
     public static readonly string SHADER_URP = "Universal Render Pipeline/2D/Sprite-Lit-Default";
 
