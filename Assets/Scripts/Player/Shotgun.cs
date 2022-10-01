@@ -16,6 +16,7 @@ public class Shotgun : Weapon {
     public void Shoot() {
         GameObject go = Instantiate(bulletPrefab.gameObject, transform.position, transform.rotation);
 
+        go.GetComponent<Bullet>().damage = damage;
         go.GetComponent<Rigidbody2D>().AddForce(go.transform.up * bulletSpeed)
         ;
     }

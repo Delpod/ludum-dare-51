@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     [SerializeField] Character[] characterList;
+    [SerializeField] int health = 100;
 
     private Vector2 movingVector;
     private Character currentCharacter;
@@ -26,5 +27,13 @@ public class Player : MonoBehaviour {
     private void FixedUpdate() {
         movingVector = InputManager.instance.playerInput.actions[Strings.PLAYER_MOVE].ReadValue<Vector2>();
         transform.position += currentCharacter.currentSpeed * Time.fixedDeltaTime * new Vector3(movingVector.x, movingVector.y);
+    }
+
+    public void GetDamage(int damage) {
+        health -= damage;
+
+        if (health < 0f) {
+
+        }
     }
 }

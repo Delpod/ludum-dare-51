@@ -1,5 +1,6 @@
 public static class Strings {
     public static readonly string TAG_ENEMY = "Enemy";
+    public static readonly string TAG_PLAYER = "Player";
 
     public static readonly string TRIGGER_ATTACK = "Attack";
 
