@@ -1,27 +1,34 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
-    [SerializeField] Character[] characterList;
-    [SerializeField] int health = 100;
+    [SerializeField] public Character[] characterList;
+    [SerializeField] int maxHealth = 100;
+    [SerializeField] Slider healthBarSlider;
 
+    [HideInInspector] public int currentCharacterId = 0;
+
+    private int health;
     private Vector2 movingVector;
     private Character currentCharacter;
 
     private void Start() {
-        for (int i = 0; i < characterList.Length; ++i) {
-            characterList[i].gameObject.SetActive(i == 0);
-        }
-
-        currentCharacter = characterList[0];
-    }
-
-    private void OnDestroy() {
+        SetCharacterActive();
+        health = maxHealth;
     }
 
     private void Update() {
         if (InputManager.instance.playerInput.actions[Strings.PLAYER_FIRE].triggered) {
             currentCharacter.Attack();
         }
+    }
+
+    private void SetCharacterActive() {
+        for (int i = 0; i < characterList.Length; ++i) {
+            characterList[i].gameObject.SetActive(i == currentCharacterId);
+        }
+
+        currentCharacter = characterList[currentCharacterId];
     }
 
     private void FixedUpdate() {
@@ -33,9 +40,20 @@ public class Player : MonoBehaviour {
         print("hit");
 
         health -= damage;
+        healthBarSlider.value = (float)health / maxHealth;
 
         if (health < 0f) {
 
         }
+    }
+
+    public void NextCharacter() {
+        if (currentCharacterId + 1 == characterList.Length) {
+            currentCharacterId = 0;
+        } else {
+            ++currentCharacterId;
+        }
+
+        SetCharacterActive();
     }
 }
