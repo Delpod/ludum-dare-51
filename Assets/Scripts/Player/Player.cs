@@ -14,13 +14,15 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-        movingVector = InputManager.instance.playerInput.actions[Strings.PLAYER_MOVE].ReadValue<Vector2>();
         lookingVector = InputManager.instance.playerInput.actions[Strings.PLAYER_LOOK].ReadValue<Vector2>();
-
-        transform.position += currentMaxSpeed * Time.deltaTime * new Vector3(movingVector.x, movingVector.y);
 
         if (InputManager.instance.playerInput.actions[Strings.PLAYER_FIRE].triggered) {
             // Shooting
         }
+    }
+
+    private void FixedUpdate() {
+        movingVector = InputManager.instance.playerInput.actions[Strings.PLAYER_MOVE].ReadValue<Vector2>();
+        transform.position += currentMaxSpeed * Time.fixedDeltaTime * new Vector3(movingVector.x, movingVector.y);
     }
 }
