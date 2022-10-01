@@ -77,7 +77,6 @@ public class Enemy : MonoBehaviour {
         animator.SetBool(Strings.TRIGGER_WALKING, false);
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag(Strings.TAG_PLAYER)) {
             player.GetDamage(damage);

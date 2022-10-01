@@ -37,8 +37,6 @@ public class Player : MonoBehaviour {
     }
 
     public void GetDamage(int damage) {
-        print("hit");
-
         health -= damage;
         healthBarSlider.value = (float)health / maxHealth;
 
