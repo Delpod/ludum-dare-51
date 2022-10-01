@@ -54,6 +54,12 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void FixedUpdate() {
+        if (player.transform.position.x > transform.position.x ) {
+            myRenderer.flipX = true;
+        }
+    }
+
     private void StartAttack() {
         isAttacking = true;
         animator.SetTrigger(Strings.TRIGGER_ATTACK);
