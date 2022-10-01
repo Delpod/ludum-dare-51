@@ -93,6 +93,7 @@ public class Enemy : MonoBehaviour {
     }
 
     private void HandleDeath() {
+        GameManager.MonsterKilled();
         Destroy(gameObject);
     }
 

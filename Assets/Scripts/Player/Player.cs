@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
         healthBarSlider.value = (float)health / maxHealth;
 
         if (health < 0f) {
-
+            GameManager.LoseGame();
         }
     }
 
