@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour {
 
     static public void MonsterKilled() {
         ++monsterCount;
+
+        FindObjectOfType<RoomManager>().activeRoom.MonsterKilled();
     }
 
     static public void RoomCleared() {
