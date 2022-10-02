@@ -8,8 +8,10 @@ public class Timer : MonoBehaviour {
     private float multiplier = 10f;
     private float maxTime;
     private Player player;
+    private Animator animator;
 
     void Start() {
+        animator = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
         maxTime = 10f * player.characterList.Length;
     }
@@ -32,6 +34,10 @@ public class Timer : MonoBehaviour {
     }
 
     public static void RestartTimer() {
-        FindObjectOfType<Timer>().time = 0f;
+        Timer timer = FindObjectOfType<Timer>();
+        timer.time = 0f;
+        if (timer.animator) {
+            timer.animator.SetTrigger(Strings.TRIGGER_RESTART_TIMER);
+        }
     }
 }

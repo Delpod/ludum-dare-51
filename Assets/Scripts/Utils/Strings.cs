@@ -5,6 +5,7 @@ public static class Strings {
     public static readonly string TRIGGER_ATTACK = "Attack";
     public static readonly string TRIGGER_WALKING = "Walking";
     public static readonly string TRIGGER_FORCE_IDLE = "ForceIdle";
+    public static readonly string TRIGGER_RESTART_TIMER = "RestartTimer";
 
     public static readonly string ACTION_MAP_UI = "UI";
     public static readonly string ACTION_MAP_PLAYER = "Player";

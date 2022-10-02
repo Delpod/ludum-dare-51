@@ -21,7 +21,7 @@ public class Room : MonoBehaviour {
     [HideInInspector] public int monstersKilled;
 
     private Tilemap tilemap;
-    private WaitForSeconds monsterWait = new(0.25f);
+    private WaitForSeconds doorOpenWait = new(0.25f);
 
     private void Awake() {
         tilemap = GetComponent<Tilemap>();
@@ -69,7 +69,9 @@ public class Room : MonoBehaviour {
     }
 
     private IEnumerator CheckIfAllKilled() {
-        yield return monsterWait;
+        CameraShake.instance.StartConstantShaking(1f);
+
+        yield return doorOpenWait;
 
         if (monstersKilled == numberOfMonsters) {
             gatesTop.Open();
@@ -77,7 +79,6 @@ public class Room : MonoBehaviour {
             gatesRight.Open();
 
             GameManager.RoomCleared();
-
             AudioSource.PlayClipAtPoint(doorOpenClip, transform.position, 1f);
 
             if (lastRoom) {
@@ -85,6 +86,10 @@ public class Room : MonoBehaviour {
                 go.SetActive(true);
             }
         }
+
+        yield return doorOpenWait;
+
+        CameraShake.instance.StopConstantShaking();
     }
 
     public void TopOpenable(bool value) {

@@ -11,6 +11,7 @@ public class Shotgun : Weapon {
 
     public override void Attack() {
         animator.SetTrigger(Strings.TRIGGER_ATTACK);
+        CameraShake.instance.ShakeCamera(0.75f, 0.2f);
     }
 
     public void Shoot() {

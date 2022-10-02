@@ -101,17 +101,21 @@ public class Enemy : MonoBehaviour {
 
         markedForDeath = true;
         GameManager.MonsterKilled();
-        Destroy(gameObject);
+        Destroy(gameObject, hitDelay);
     }
 
     public void GetDamage(int damage) {
+        if (markedForDeath) {
+            return;
+        }
+
         health -= damage;
 
         AudioSource.PlayClipAtPoint(Helpers.RandomElement(hitClips), transform.position, 1f);
-        
+        CameraShake.instance.ShakeCamera(1f, 0.25f);
+
         if (health <= 0) {
             HandleDeath();
-            return;
         }
 
         activeDelay = hitDelay;

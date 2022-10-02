@@ -54,6 +54,8 @@ public class Player : MonoBehaviour {
 
         AudioSource.PlayClipAtPoint(Helpers.RandomElement(hurtClips), transform.position, 1f);
 
+        CameraShake.instance.ShakeCamera(2f, 0.5f);
+
         if (health < 0f) {
             audioSourceAlive.Stop();
             GameManager.LoseGame();

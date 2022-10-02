@@ -9,6 +9,7 @@ public class Sword : Weapon {
     public override void Attack() {
         transform.parent.GetComponent<Character>().StopRotation();
         animator.SetTrigger(Strings.TRIGGER_ATTACK);
+        CameraShake.instance.ShakeCamera(0.5f, 0.5f);
     }
 
     public void StartAttack() {
