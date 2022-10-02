@@ -21,15 +21,17 @@ public class RoomManager : MonoBehaviour {
         difficulty = startDifficulty;
     }
 
-    public void CreateRooms(bool restoreHealth = true) {
+    public void CreateRooms(bool startAgain = false) {
         foreach(Room r in roomList) {
             Destroy(r.gameObject);
         }
 
         roomList = new List<Room>();
         activeRoom = null;
-        Player.RestartPlayer(restoreHealth);
-        Timer.RestartTimer();
+        Player.RestartPlayer(startAgain);
+        if (startAgain) {
+            Timer.RestartTimer();
+        }
 
         int roomCount = Random.Range(minRooms, maxRooms + 1);
         int microRoomCount = Random.Range(0, roomCount / 2 - 1);

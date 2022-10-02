@@ -86,21 +86,21 @@ public class Player : MonoBehaviour {
         SetCharacterActive();
     }
 
-    public static void RestartPlayer(bool restoreHealth) {
+    public static void RestartPlayer(bool startAgain) {
         Player p = FindObjectOfType<Player>();
         p.currentCharacter.SetWalking(false);
 
-        p.maxHealth = 100;
 
-        if (restoreHealth) {
+        if (startAgain) {
+            p.maxHealth = 100;
             p.health = p.maxHealth;
+            p.UpdateSlider();
+            p.currentCharacterId = 0;
+            p.SetCharacterActive();
+            p.audioSourceAlive.Play();
         }
 
-        p.UpdateSlider();
-        p.currentCharacterId = 0;
-        p.SetCharacterActive();
         p.transform.position = Vector3.zero;
-        p.audioSourceAlive.Play();
         p.healthBarSlider.GetComponent<Animator>().SetTrigger(Strings.TRIGGER_RESTART_ANIMATION);
     }
 }
