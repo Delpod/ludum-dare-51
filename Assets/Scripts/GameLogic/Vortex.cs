@@ -23,11 +23,13 @@ public class Vortex : MonoBehaviour {
 
             if (GameManager.levelCount == GameManager.maxLevel) {
                 GameManager.WinGame();
+            } else {
+                UIManager.instance.upgradeMenuCanvas.gameObject.SetActive(true);
             }
 
             RoomManager rm = FindObjectOfType<RoomManager>();
 
-            rm.difficulty += 6;
+            rm.difficulty += 7;
             rm.CreateRooms(false);
             Destroy(gameObject);
         }

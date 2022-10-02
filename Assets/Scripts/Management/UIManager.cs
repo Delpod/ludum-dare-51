@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour {
     public Canvas startMenuCanvas;
     public Canvas loseMenuCanvas;
     public Canvas winMenuCanvas;
+    public Canvas upgradeMenuCanvas;
     public Canvas ingameUICanvas;
 
     private void Awake() {

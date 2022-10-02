@@ -12,7 +12,9 @@ public class EndMenu : MonoBehaviour {
 
     private void Awake() {
         canvasGroup = GetComponent<CanvasGroup>();
+    }
 
+    private void OnEnable() {
         monstersKilled.text = "Monsters killed: " + GameManager.monsterCount;
         roomsCleared.text = "Rooms cleared: " + GameManager.roomCount;
         levelsBeaten.text = "Levels beaten: " + GameManager.levelCount;

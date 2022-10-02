@@ -9,8 +9,8 @@ public class RoomManager : MonoBehaviour {
     [SerializeField] int minRooms = 4;
     [SerializeField] int maxRooms = 7;
 
-    public int startDifficulty = 8;
-    public List<Room> roomList = new List<Room>();
+    public int startDifficulty = 7;
+    [HideInInspector] public List<Room> roomList = new List<Room>();
     [HideInInspector] public int difficulty;
     [HideInInspector] public Room activeRoom;
 

@@ -9,6 +9,7 @@ public class Character : MonoBehaviour {
     [SerializeField] float changeSpeed = 20f;
     [SerializeField] float attackDelay = 0.5f;
 
+    public int defaultDamage = 25;
     public AudioClip audioClip;
     public float currentSpeed = 10f;
     public bool isAttacking = false;
@@ -77,5 +78,13 @@ public class Character : MonoBehaviour {
 
     public void SetWalking(bool value) {
         animator.SetBool(Strings.TRIGGER_WALKING, value);
+    }
+
+    public int GetWeaponDamage() {
+        return weapon.damage;
+    }
+
+    public void SetWeaponDamage(int newDamage) {
+        weapon.damage = newDamage;
     }
 }

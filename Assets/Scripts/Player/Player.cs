@@ -1,16 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour {
     [SerializeField] public Character[] characterList;
+    [SerializeField] public Character[] swordCharacterList;
+    [SerializeField] public Character[] shotgunCharacterList;
     [SerializeField] int maxHealth = 100;
     [SerializeField] Slider healthBarSlider;
+    [SerializeField] TMP_Text healthBarText;
     [SerializeField] AudioSource audioSourceHeroTheme;
     [SerializeField] AudioClip switchClip;
     [SerializeField] AudioClip[] hurtClips;
 
     public AudioSource audioSourceAlive;
 
+    [HideInInspector] public float damageModifier = 1f;
     [HideInInspector] public int currentCharacterId = 0;
 
     private int health;
@@ -53,21 +58,23 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void GetDamage(int damage) {
-        health -= damage;
+    public void GetDamage(int damage, bool useModifier = true) {
+        health = Mathf.Min(health - (useModifier ? (int)(damage * damageModifier) : damage), maxHealth);
         UpdateSlider();
 
-        AudioSource.PlayClipAtPoint(Helpers.RandomElement(hurtClips), transform.position, 1f);
+        if (damage > 0) {
+            AudioSource.PlayClipAtPoint(Helpers.RandomElement(hurtClips), transform.position, 1f);
+            CameraShake.instance.ShakeCamera(2f, 0.5f);
+        }
 
-        CameraShake.instance.ShakeCamera(2f, 0.5f);
-
-        if (health < 0f) {
+        if (health <= 0) {
             audioSourceAlive.Stop();
             GameManager.LoseGame();
         }
     }
 
     private void UpdateSlider() {
+        healthBarText.text = "" + health + " / " + maxHealth;
         healthBarSlider.value = (float)health / maxHealth;
         healthBarSlider.GetComponent<Animator>().SetTrigger(Strings.TRIGGER_SHAKE);
     }
@@ -98,6 +105,9 @@ public class Player : MonoBehaviour {
             p.currentCharacterId = 0;
             p.SetCharacterActive();
             p.audioSourceAlive.Play();
+            foreach (Character c in p.characterList) {
+                c.SetWeaponDamage(c.defaultDamage);
+            }
         }
 
         p.transform.position = Vector3.zero;
