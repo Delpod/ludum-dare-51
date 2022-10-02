@@ -42,7 +42,16 @@ public class Room : MonoBehaviour {
             }
         }
 
-        print(possiblePositions.Count);
+        int currentDifficulty = 0;
+
+        while (currentDifficulty + 2 < roomDifficulty) {
+            ContentList.MonsterEntry me = Helpers.RandomElement(ContentList.instance.monsterList);
+            Vector2Int position = Helpers.RandomElement(possiblePositions);
+            possiblePositions.Remove(position);
+            GameObject enemy = Instantiate(me.enemyPrefab, new Vector3(transform.position.x + position.x, transform.position.y + position.y), Quaternion.identity, monsters);
+            enemy.SetActive(false);
+            currentDifficulty += me.difficulty;
+        }
     }
 
     public void MonsterKilled() {

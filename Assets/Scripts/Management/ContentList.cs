@@ -9,7 +9,7 @@ public class ContentList : MonoBehaviour {
     [Serializable]
     public struct MonsterEntry {
         public GameObject enemyPrefab;
-        public float difficulty;
+        public int difficulty;
     }
 
     public List<MonsterEntry> monsterList = new();
