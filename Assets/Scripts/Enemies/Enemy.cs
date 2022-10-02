@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float attackDelay = 1f;
     [SerializeField] bool destroyOnCollisionWithPlayer = false;
     [SerializeField] AudioClip[] hitClips;
+    [SerializeField] ParticleSystem deathParticles;
 
     private Player player;
     private float activeDelay = -1f;
@@ -101,7 +102,9 @@ public class Enemy : MonoBehaviour {
 
         markedForDeath = true;
         GameManager.MonsterKilled();
+        GameObject particlesGO = Instantiate(deathParticles.gameObject, transform.position, Quaternion.identity);
         Destroy(gameObject, hitDelay);
+        Destroy(particlesGO, 1f);
     }
 
     public void GetDamage(int damage) {

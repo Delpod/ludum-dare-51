@@ -45,7 +45,12 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate() {
         movingVector = InputManager.instance.playerInput.actions[Strings.PLAYER_MOVE].ReadValue<Vector2>();
-        transform.position += currentCharacter.currentSpeed * Time.fixedDeltaTime * new Vector3(movingVector.x, movingVector.y);
+        if (!Mathf.Approximately(movingVector.x, 0f) || !Mathf.Approximately(movingVector.y, 0f)) {
+            transform.position += currentCharacter.currentSpeed * Time.fixedDeltaTime * new Vector3(movingVector.x, movingVector.y);
+            currentCharacter.SetWalking(true);
+        } else {
+            currentCharacter.SetWalking(false);
+        }
     }
 
     public void GetDamage(int damage) {
@@ -83,6 +88,8 @@ public class Player : MonoBehaviour {
 
     public static void RestartPlayer(bool restoreHealth) {
         Player p = FindObjectOfType<Player>();
+        p.currentCharacter.SetWalking(false);
+
         p.maxHealth = 100;
 
         if (restoreHealth) {

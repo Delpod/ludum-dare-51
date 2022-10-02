@@ -151,6 +151,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 19853d58038240d42b54f753b301a649, type: 3}
   - {fileID: 8300000, guid: 96967618b6f7a4741b20452c153e9a27, type: 3}
   - {fileID: 8300000, guid: 0920e850c325b6c4fa71823da315f59a, type: 3}
+  deathParticles: {fileID: 7310097688193025367, guid: 6f735d94ff34ead4db690e22f7a24e9b, type: 3}
 --- !u!114 &115006138
 MonoBehaviour:
   m_ObjectHideFlags: 0

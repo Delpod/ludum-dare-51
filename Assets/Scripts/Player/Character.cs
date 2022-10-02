@@ -13,12 +13,14 @@ public class Character : MonoBehaviour {
     public float currentSpeed = 10f;
     public bool isAttacking = false;
 
+    private Animator animator;
     private Vector2 mousePos;
     private float delay = -1f;
     private Camera mainCamera;
 
     private void Start() {
         mainCamera = Camera.main;
+        animator = GetComponent<Animator>();
     }
 
     public void Attack() {
@@ -70,5 +72,10 @@ public class Character : MonoBehaviour {
         isAttacking = false;
         currentSpeed = movementSpeed;
         weapon.ZeroAnimations();
+        SetWalking(false);
+    }
+
+    public void SetWalking(bool value) {
+        animator.SetBool(Strings.TRIGGER_WALKING, value);
     }
 }
