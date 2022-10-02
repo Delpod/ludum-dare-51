@@ -20,6 +20,8 @@ public class Player : MonoBehaviour {
     private void Start() {
         SetCharacterActive();
         health = maxHealth;
+        audioSourceHeroTheme.Stop();
+        audioSourceAlive.Stop();
     }
 
     private void Update() {

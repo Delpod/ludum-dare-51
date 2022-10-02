@@ -31,7 +31,9 @@ public class GameManager : MonoBehaviour {
         UIManager.instance.loseMenuCanvas.gameObject.SetActive(false);
         UIManager.instance.winMenuCanvas.gameObject.SetActive(false);
         UIManager.instance.ingameUICanvas.gameObject.SetActive(true);
-        FindObjectOfType<RoomManager>().CreateRooms();
+        RoomManager rm = FindObjectOfType<RoomManager>();
+        rm.difficulty = rm.startDifficulty;
+        rm.CreateRooms(true);
         monsterCount = 0;
         roomCount = 0;
         levelCount = 0;

@@ -9,13 +9,16 @@ public class RoomManager : MonoBehaviour {
     [SerializeField] int minRooms = 4;
     [SerializeField] int maxRooms = 7;
 
+    public int startDifficulty = 8;
     public List<Room> roomList = new List<Room>();
+    [HideInInspector] public int difficulty;
     [HideInInspector] public Room activeRoom;
 
     private CinemachineVirtualCamera cmVC;
 
     private void Start() {
         cmVC = FindObjectOfType<CinemachineVirtualCamera>();
+        difficulty = startDifficulty;
     }
 
     public void CreateRooms(bool restoreHealth = true) {
@@ -38,6 +41,7 @@ public class RoomManager : MonoBehaviour {
             go.SetActive(true);
             Room r = go.GetComponent<Room>();
             r.TopOpenable(false);
+            r.roomDifficulty = difficulty;
 
             if (i == 0) {
                 r.roomDifficulty = 0;

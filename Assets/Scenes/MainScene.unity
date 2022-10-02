@@ -676,7 +676,9 @@ MonoBehaviour:
   prefabMicroRooms: []
   minRooms: 4
   maxRooms: 6
+  startDifficulty: 10
   roomList: []
+  difficulty: 8
   activeRoom: {fileID: 0}
 --- !u!1 &258008392
 GameObject:
@@ -1548,7 +1550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: but you've managed to do some stuff and improve youreself.
+  m_text: but you've managed to do some stuff and improve youreself
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b25f1a9c8afca0b41b8c44bcefc8c1d8, type: 2}
   m_sharedMaterial: {fileID: 3492266295051798364, guid: b25f1a9c8afca0b41b8c44bcefc8c1d8, type: 2}
@@ -4448,7 +4450,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b86cc14547389734bb4bd28e4a68e0ec, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.175
   m_Pitch: 1
   Loop: 1
@@ -4544,7 +4546,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.06
   m_Pitch: 1
   Loop: 1
