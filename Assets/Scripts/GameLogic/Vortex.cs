@@ -27,7 +27,7 @@ public class Vortex : MonoBehaviour {
 
             RoomManager rm = FindObjectOfType<RoomManager>();
 
-            rm.difficulty += 5;
+            rm.difficulty += 6;
             rm.CreateRooms(false);
             Destroy(gameObject);
         }

@@ -3,6 +3,7 @@
 public class Bullet : MonoBehaviour {
     [SerializeField] float rotationSpeed = 10f;
     [SerializeField] ParticleSystem deathParticles;
+    [SerializeField] bool hitEnemy = true;
 
     public int damage = 25;
 
@@ -11,8 +12,10 @@ public class Bullet : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag(Strings.TAG_ENEMY)) {
+        if (hitEnemy && other.CompareTag(Strings.TAG_ENEMY)) {
             other.GetComponent<Enemy>().GetDamage(damage);
+        } else if (!hitEnemy && other.CompareTag(Strings.TAG_PLAYER)) {
+            other.GetComponent<Player>().GetDamage(damage);
         }
 
         GameObject deathGO = Instantiate(deathParticles.gameObject, transform.position, Quaternion.identity);

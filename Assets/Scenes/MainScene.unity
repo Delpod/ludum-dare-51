@@ -704,10 +704,12 @@ MonoBehaviour:
   - {fileID: 6947568957616493352, guid: b4b45d68cc9e8c049845447fdaa125ec, type: 3}
   - {fileID: 5192829121675755569, guid: 0502182178d579545abe48682509e676, type: 3}
   - {fileID: 6947568957616493352, guid: 60ddd403bef1ce0449eab7536c1b2493, type: 3}
+  - {fileID: 6947568957616493352, guid: 2b9a5700eaf209c49a5e87eb4060b2ca, type: 3}
+  - {fileID: 6947568957616493352, guid: 02275c30963292745994d35acc7a6608, type: 3}
   prefabMicroRooms: []
   minRooms: 4
   maxRooms: 6
-  startDifficulty: 10
+  startDifficulty: 7
   roomList: []
   difficulty: 8
   activeRoom: {fileID: 0}
@@ -5185,10 +5187,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterList:
-  - enemyPrefab: {fileID: 185056054819761377, guid: 2482d162c0499eb4b848f38228ddec6e, type: 3}
-    difficulty: 2
   - enemyPrefab: {fileID: 4786273600609883102, guid: 229094ebdc288f44685af93516c5036e, type: 3}
     difficulty: 5
+  - enemyPrefab: {fileID: 185056054819761377, guid: 2482d162c0499eb4b848f38228ddec6e, type: 3}
+    difficulty: 2
+  - enemyPrefab: {fileID: 6537284642270769043, guid: b5fbfa8e783e82049aac980ca08c2a35, type: 3}
+    difficulty: 6
   availableTileList:
   - {fileID: 11400000, guid: a46a49c5e63bea04b8569f5e48663498, type: 2}
 --- !u!1 &1086115154

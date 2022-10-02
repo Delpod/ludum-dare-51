@@ -52,8 +52,8 @@ public class Character : MonoBehaviour {
 
             weapon.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(mousePos.x) * Vector3.Angle(transform.up, new Vector3(mousePos.x, mousePos.y)), 1080f * Time.deltaTime));
         } else {
-            Vector2 mousePos = mainCamera.ScreenToViewportPoint(Mouse.current.position.ReadValue());
-            Vector3 dir = new Vector3(mousePos.x, mousePos.y) - mainCamera.WorldToViewportPoint(transform.position);
+            Vector2 mousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector3 dir = new Vector3(mousePos.x, mousePos.y) - transform.position;
             dir.z = 0f;
 
             weapon.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(dir.x) * Vector3.Angle(transform.up, dir), 1080f * Time.deltaTime));

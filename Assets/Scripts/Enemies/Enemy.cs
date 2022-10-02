@@ -12,6 +12,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField] bool destroyOnCollisionWithPlayer = false;
     [SerializeField] AudioClip[] hitClips;
     [SerializeField] ParticleSystem deathParticles;
+    [SerializeField] bool isShooting = false;
+    [SerializeField] Bullet bulletPrefab;
+    [SerializeField] LayerMask raycastMask;
+    [SerializeField] float bulletSpeed = 400f;
 
     private Player player;
     private float activeDelay = -1f;
@@ -25,6 +29,7 @@ public class Enemy : MonoBehaviour {
     private AIPath aiPath;
     private AIDestinationSetter aiDestinationSetter;
     private bool markedForDeath = false;
+    private bool canShoot = false;
 
     private void Start() {
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
@@ -56,16 +61,32 @@ public class Enemy : MonoBehaviour {
             return;
         }
 
-        if (Vector3.SqrMagnitude(transform.position - player.transform.position) > (stopDistance * stopDistance)) {
-            animator.SetBool(Strings.TRIGGER_WALKING, true);
-        } else if (activeAttackDelay <= 0f) {
-            StartAttack();
+        if (isShooting) {
+            animator.SetBool(Strings.TRIGGER_WALKING, !canShoot);
+            if (canShoot && activeAttackDelay <= 0f) {
+                StartShooting();
+            }
+        } else {
+            if (Vector3.SqrMagnitude(transform.position - player.transform.position) > (stopDistance * stopDistance)) {
+                animator.SetBool(Strings.TRIGGER_WALKING, true);
+            } else if (activeAttackDelay <= 0f) {
+                StartAttack();
+            }
         }
     }
 
     private void FixedUpdate() {
-        if (player.transform.position.x > transform.position.x ) {
-            myRenderer.flipX = true;
+        myRenderer.flipX = player.transform.position.x > transform.position.x;
+
+        if (isShooting) {
+            RaycastHit2D raycastHit = Physics2D.CircleCast(transform.position, 0.2f, player.transform.position - transform.position, 100f, raycastMask.value);
+            if (raycastHit.transform && raycastHit.transform.CompareTag(Strings.TAG_PLAYER)) {
+                aiPath.canMove = false;
+                canShoot = true;
+            } else {
+                aiPath.canMove = true;
+                canShoot = false;
+            }
         }
     }
 
@@ -75,8 +96,24 @@ public class Enemy : MonoBehaviour {
         animator.SetTrigger(Strings.TRIGGER_ATTACK);
     }
 
+    private void StartShooting() {
+        isAttacking = true;
+        aiPath.enabled = false;
+        animator.SetTrigger(Strings.TRIGGER_ATTACK);
+    }
+
     public void Attack() {
-        if (!markedForDeath && Vector3.SqrMagnitude(transform.position - player.transform.position) <= (hitDistance * hitDistance)) {
+        if (markedForDeath) {
+            return;
+        }
+
+        if (isShooting) {
+            Vector3 dir = player.transform.position - transform.position;
+            GameObject go = Instantiate(bulletPrefab.gameObject, transform.position, Quaternion.Euler(0f, 0f, -Mathf.Sign(dir.x) * Vector3.Angle(transform.up, dir)));
+
+            go.GetComponent<Bullet>().damage = damage;
+            go.GetComponent<Rigidbody2D>().AddForce(go.transform.up * bulletSpeed);
+        } else if (Vector3.SqrMagnitude(transform.position - player.transform.position) <= (hitDistance * hitDistance)) {
             player.GetDamage(damage);
         }
     }
