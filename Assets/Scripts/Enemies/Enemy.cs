@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (destroyOnCollisionWithPlayer && collision.collider.CompareTag(Strings.TAG_PLAYER)) {
+        if (!markedForDeath && destroyOnCollisionWithPlayer && collision.collider.CompareTag(Strings.TAG_PLAYER)) {
             player.GetDamage(damage);
             GetDamage(health);
         }
