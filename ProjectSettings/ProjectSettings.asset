@@ -12,9 +12,9 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: LD51
-  defaultCursor: {fileID: 0}
+  companyName: Delpod
+  productName: Switch Heroes
+  defaultCursor: {fileID: 2800000, guid: 1921a3c1707969b45aa04431ccf2d928, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -39,7 +39,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: 512dd226f30d9494a8967c35f8e2b85c, type: 3}
+    duration: 4
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
@@ -154,7 +156,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.Delpod.Switch-Heroes
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -268,7 +271,14 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: ffaad9e6de4bb6946a2b068311c2fd94, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons: []
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsJobs: []
