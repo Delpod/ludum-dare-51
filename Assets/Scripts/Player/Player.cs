@@ -5,6 +5,9 @@ public class Player : MonoBehaviour {
     [SerializeField] public Character[] characterList;
     [SerializeField] int maxHealth = 100;
     [SerializeField] Slider healthBarSlider;
+    [SerializeField] AudioSource audioSourceHeroTheme;
+
+    public AudioSource audioSourceAlive;
 
     [HideInInspector] public int currentCharacterId = 0;
 
@@ -29,6 +32,11 @@ public class Player : MonoBehaviour {
         }
 
         currentCharacter = characterList[currentCharacterId];
+        if (audioSourceHeroTheme.isPlaying) {
+            audioSourceHeroTheme.Stop();
+        }
+        audioSourceHeroTheme.clip = currentCharacter.audioClip;
+        audioSourceHeroTheme.Play();
     }
 
     private void FixedUpdate() {
@@ -41,6 +49,7 @@ public class Player : MonoBehaviour {
         UpdateSlider();
 
         if (health < 0f) {
+            audioSourceAlive.Stop();
             GameManager.LoseGame();
         }
     }
@@ -73,5 +82,6 @@ public class Player : MonoBehaviour {
         p.currentCharacterId = 0;
         p.SetCharacterActive();
         p.transform.position = Vector3.zero;
+        p.audioSourceAlive.Play();
     }
 }

@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour {
     private bool isAttacking = false;
     private AIPath aiPath;
     private AIDestinationSetter aiDestinationSetter;
+    private bool markedForDeath = false;
 
     private void Start() {
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
@@ -93,6 +94,11 @@ public class Enemy : MonoBehaviour {
     }
 
     private void HandleDeath() {
+        if (markedForDeath) {
+            return;
+        }
+
+        markedForDeath = true;
         GameManager.MonsterKilled();
         Destroy(gameObject);
     }

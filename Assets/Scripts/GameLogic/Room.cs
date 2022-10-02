@@ -16,7 +16,7 @@ public class Room : MonoBehaviour {
 
     [HideInInspector] public bool lastRoom = false;
     [HideInInspector] public int roomDifficulty = 10;
-    [HideInInspector] public int numberOfMonsters;
+    public int numberOfMonsters;
     [HideInInspector] public int monstersKilled;
 
     private Tilemap tilemap;

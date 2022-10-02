@@ -9,6 +9,7 @@ public class Character : MonoBehaviour {
     [SerializeField] float changeSpeed = 20f;
     [SerializeField] float attackDelay = 0.5f;
 
+    public AudioClip audioClip;
     public float currentSpeed = 10f;
     public bool isAttacking = false;
 
