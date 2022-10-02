@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class RoomManager : MonoBehaviour {
     [SerializeField] Room[] prefabRooms;
+    [SerializeField] int minRooms = 4;
+    [SerializeField] int maxRooms = 7;
 
     public List<Room> roomList = new List<Room>();
     [HideInInspector] public Room activeRoom;
@@ -18,14 +20,19 @@ public class RoomManager : MonoBehaviour {
     }
 
     public void CreateRooms() {
-        // TODO: Generate rooms
+        int roomCount = Random.Range(minRooms, maxRooms + 1);
 
-        foreach (Room r in roomList) {
+        for (int i = 0; i < roomCount; ++i) {
+            Room prefab = Helpers.RandomElement(prefabRooms);
+            Vector3 roomPos = i == 0 ? Vector3.zero : new Vector3(roomList[i - 1].transform.position.x + (roomList[i - 1].size.x + prefab.size.x) / 2f, 0f);
+            GameObject go = Instantiate(prefab.gameObject, roomPos, Quaternion.identity, transform);
+            go.SetActive(true);
+            Room r = go.GetComponent<Room>();
             r.CreateMonsters();
+            roomList.Add(r);
         }
 
-        activeRoom = roomList[0];
-        activeRoom.Activate();
+        SwitchActiveRoom(roomList[0]);
     }
 
     public bool SwitchActiveRoom(Room room) {

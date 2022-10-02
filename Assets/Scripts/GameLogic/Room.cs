@@ -3,9 +3,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour {
-    [SerializeField] Gates[] gatesList;
+    [SerializeField] Gates gatesTop;
+    [SerializeField] Gates gatesBottom;
+    [SerializeField] Gates gatesLeft;
+    [SerializeField] Gates gatesRight;
     [SerializeField] Transform monsters;
+    [SerializeField] int maxDifficulty = -1;
 
+    public Vector2Int size;
     public float orthoSize = 5.6f;
 
     [HideInInspector] public int roomDifficulty = 10;
@@ -61,10 +66,26 @@ public class Room : MonoBehaviour {
 
     private void CheckIfAllKilled() {
         if (monstersKilled == numberOfMonsters) {
-            foreach (Gates g in gatesList) {
-                g.Open();
-            }
+            gatesTop.Open();
+            gatesBottom.Open();
+            gatesLeft.Open();
+            gatesRight.Open();
         }
+    }
 
+    private void TopUnopenable() {
+        gatesTop.openable = false;
+    }
+
+    private void BottomUnopenable() {
+        gatesBottom.openable = false;
+    }
+
+    private void LeftUnopenable() {
+        gatesLeft.openable = false;
+    }
+
+    private void RightUnopenable() {
+        gatesRight.openable = false;
     }
 }
