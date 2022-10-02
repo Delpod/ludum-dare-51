@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour {
     static public GameState state = GameState.StartMenu;
     static public int monsterCount;
     static public int roomCount;
-    static public int levelCount;
     static public int itemCount;
+    static public int levelCount;
+    static public readonly int maxLevel = 3;
 
     private void Start() {
         if (instance == null || this == instance) {
@@ -27,8 +28,10 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 1f;
         InputManager.instance.playerInput.SwitchCurrentActionMap(Strings.ACTION_MAP_PLAYER);
         UIManager.instance.startMenuCanvas.gameObject.SetActive(false);
-        UIManager.instance.endMenuCanvas.gameObject.SetActive(false);
+        UIManager.instance.loseMenuCanvas.gameObject.SetActive(false);
+        UIManager.instance.winMenuCanvas.gameObject.SetActive(false);
         UIManager.instance.ingameUICanvas.gameObject.SetActive(true);
+        FindObjectOfType<RoomManager>().CreateRooms();
         monsterCount = 0;
         roomCount = 0;
         levelCount = 0;
@@ -38,12 +41,13 @@ public class GameManager : MonoBehaviour {
 
     static public void LoseGame() {
         EndGame();
-        UIManager.instance.endMenuCanvas.gameObject.SetActive(true);
+        UIManager.instance.loseMenuCanvas.gameObject.SetActive(true);
         state = GameState.Lose;
     }
 
     static public void WinGame() {
         EndGame();
+        UIManager.instance.winMenuCanvas.gameObject.SetActive(true);
         state = GameState.Won;
     }
 

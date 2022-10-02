@@ -4,7 +4,8 @@ public class UIManager : MonoBehaviour {
     static public UIManager instance { get; private set; }
 
     public Canvas startMenuCanvas;
-    public Canvas endMenuCanvas;
+    public Canvas loseMenuCanvas;
+    public Canvas winMenuCanvas;
     public Canvas ingameUICanvas;
 
     private void Awake() {

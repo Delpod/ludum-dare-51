@@ -1,23 +1,26 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour {
     [SerializeField] Gates gatesTop;
-    [SerializeField] Gates gatesBottom;
     [SerializeField] Gates gatesLeft;
     [SerializeField] Gates gatesRight;
     [SerializeField] Transform monsters;
     [SerializeField] int maxDifficulty = -1;
+    [SerializeField] Vortex vortexPrefab;
 
     public Vector2Int size;
     public float orthoSize = 5.6f;
 
+    [HideInInspector] public bool lastRoom = false;
     [HideInInspector] public int roomDifficulty = 10;
     [HideInInspector] public int numberOfMonsters;
     [HideInInspector] public int monstersKilled;
 
     private Tilemap tilemap;
+    private WaitForSeconds monsterWait = new(0.25f);
 
     private void Awake() {
         tilemap = GetComponent<Tilemap>();
@@ -30,7 +33,7 @@ public class Room : MonoBehaviour {
         }
 
         monstersKilled = 0;
-        CheckIfAllKilled();
+        StartCoroutine(CheckIfAllKilled());
     }
 
     public void CreateMonsters() {
@@ -61,31 +64,35 @@ public class Room : MonoBehaviour {
 
     public void MonsterKilled() {
         ++monstersKilled;
-        CheckIfAllKilled();
+        StartCoroutine(CheckIfAllKilled());
     }
 
-    private void CheckIfAllKilled() {
+    private IEnumerator CheckIfAllKilled() {
+        yield return monsterWait;
+
         if (monstersKilled == numberOfMonsters) {
             gatesTop.Open();
-            gatesBottom.Open();
             gatesLeft.Open();
             gatesRight.Open();
+
+            GameManager.RoomCleared();
+
+            if (lastRoom) {
+                GameObject go = Instantiate(vortexPrefab.gameObject, transform.position, Quaternion.identity, null);
+                go.SetActive(true);
+            }
         }
     }
 
-    private void TopUnopenable() {
-        gatesTop.openable = false;
+    public void TopOpenable(bool value) {
+        gatesTop.openable = value;
     }
 
-    private void BottomUnopenable() {
-        gatesBottom.openable = false;
+    public void LeftOpenable(bool value) {
+        gatesLeft.openable = value;
     }
 
-    private void LeftUnopenable() {
-        gatesLeft.openable = false;
-    }
-
-    private void RightUnopenable() {
-        gatesRight.openable = false;
+    public void RightOpenable(bool value) {
+        gatesRight.openable = value;
     }
 }

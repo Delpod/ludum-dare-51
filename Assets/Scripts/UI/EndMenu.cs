@@ -14,9 +14,9 @@ public class EndMenu : MonoBehaviour {
         canvasGroup = GetComponent<CanvasGroup>();
 
         monstersKilled.text = "Monsters killed: " + GameManager.monsterCount;
-        roomsCleared.text = "Rooms cleared: " + GameManager.monsterCount;
-        levelsBeaten.text = "Levels beaten: " + GameManager.monsterCount;
-        itemsPickedUp.text = "Items picked up: " + GameManager.monsterCount;
+        roomsCleared.text = "Rooms cleared: " + GameManager.roomCount;
+        levelsBeaten.text = "Levels beaten: " + GameManager.levelCount;
+        itemsPickedUp.text = "Items picked up: " + GameManager.itemCount;
     }
 
     private void Update() {

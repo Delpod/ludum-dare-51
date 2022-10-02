@@ -38,11 +38,15 @@ public class Player : MonoBehaviour {
 
     public void GetDamage(int damage) {
         health -= damage;
-        healthBarSlider.value = (float)health / maxHealth;
+        UpdateSlider();
 
         if (health < 0f) {
             GameManager.LoseGame();
         }
+    }
+
+    private void UpdateSlider() {
+        healthBarSlider.value = (float)health / maxHealth;
     }
 
     public void NextCharacter() {
@@ -55,5 +59,19 @@ public class Player : MonoBehaviour {
         currentCharacter.ZeroAnimations();
 
         SetCharacterActive();
+    }
+
+    public static void RestartPlayer(bool restoreHealth) {
+        Player p = FindObjectOfType<Player>();
+        p.maxHealth = 100;
+
+        if (restoreHealth) {
+            p.health = p.maxHealth;
+        }
+
+        p.UpdateSlider();
+        p.currentCharacterId = 0;
+        p.SetCharacterActive();
+        p.transform.position = Vector3.zero;
     }
 }

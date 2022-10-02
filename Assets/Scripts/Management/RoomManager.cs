@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using Pathfinding;
 using UnityEngine.Tilemaps;
 
 public class RoomManager : MonoBehaviour {
     [SerializeField] Room[] prefabRooms;
+    [SerializeField] Room[] prefabMicroRooms;
     [SerializeField] int minRooms = 4;
     [SerializeField] int maxRooms = 7;
 
@@ -16,11 +16,20 @@ public class RoomManager : MonoBehaviour {
 
     private void Start() {
         cmVC = FindObjectOfType<CinemachineVirtualCamera>();
-        CreateRooms();
     }
 
-    public void CreateRooms() {
+    public void CreateRooms(bool restoreHealth = true) {
+        foreach(Room r in roomList) {
+            Destroy(r.gameObject);
+        }
+
+        roomList = new List<Room>();
+        activeRoom = null;
+        Player.RestartPlayer(restoreHealth);
+        Timer.RestartTimer();
+
         int roomCount = Random.Range(minRooms, maxRooms + 1);
+        int microRoomCount = Random.Range(0, roomCount / 2 - 1);
 
         for (int i = 0; i < roomCount; ++i) {
             Room prefab = Helpers.RandomElement(prefabRooms);
@@ -28,6 +37,17 @@ public class RoomManager : MonoBehaviour {
             GameObject go = Instantiate(prefab.gameObject, roomPos, Quaternion.identity, transform);
             go.SetActive(true);
             Room r = go.GetComponent<Room>();
+            r.TopOpenable(false);
+
+            if (i == 0) {
+                r.roomDifficulty = 0;
+                r.LeftOpenable(false);
+            } else if (i == roomCount - 1) {
+                r.roomDifficulty += 5;
+                r.lastRoom = true;
+                r.RightOpenable(false);
+            }
+
             r.CreateMonsters();
             roomList.Add(r);
         }

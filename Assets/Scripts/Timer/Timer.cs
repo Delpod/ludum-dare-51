@@ -30,4 +30,8 @@ public class Timer : MonoBehaviour {
 
         arrow.rotation = Quaternion.Euler(0f, 0f, -360f * time / maxTime);
     }
+
+    public static void RestartTimer() {
+        FindObjectOfType<Timer>().time = 0f;
+    }
 }
