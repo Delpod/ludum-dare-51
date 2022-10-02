@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
     [SerializeField] AudioSource audioSourceHeroTheme;
     [SerializeField] AudioClip switchClip;
     [SerializeField] AudioClip[] hurtClips;
+    [SerializeField] ParticleSystem switchParticles;
 
     public AudioSource audioSourceAlive;
 
@@ -89,6 +90,7 @@ public class Player : MonoBehaviour {
         currentCharacter.ZeroAnimations();
 
         AudioSource.PlayClipAtPoint(switchClip, transform.position, 0.75f);
+        switchParticles.Play();
 
         SetCharacterActive();
     }
@@ -110,6 +112,9 @@ public class Player : MonoBehaviour {
             }
         }
 
+        if (p.switchParticles.isPlaying) {
+            p.switchParticles.Stop();
+        }
         p.transform.position = Vector3.zero;
         p.healthBarSlider.GetComponent<Animator>().SetTrigger(Strings.TRIGGER_RESTART_ANIMATION);
     }
