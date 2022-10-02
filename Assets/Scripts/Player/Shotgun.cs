@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Shotgun : Weapon {
     [SerializeField] Bullet bulletPrefab;
-    [SerializeField] float bulletSpeed = 100f;
+    [SerializeField] float bulletSpeed = 500f;
     private Animator animator;
 
     private void Start() {
@@ -17,8 +17,9 @@ public class Shotgun : Weapon {
         GameObject go = Instantiate(bulletPrefab.gameObject, transform.position, transform.rotation);
 
         go.GetComponent<Bullet>().damage = damage;
-        go.GetComponent<Rigidbody2D>().AddForce(go.transform.up * bulletSpeed)
-        ;
+        go.GetComponent<Rigidbody2D>().AddForce(go.transform.up * bulletSpeed);
+
+        AudioSource.PlayClipAtPoint(attackSound, transform.position, 0.75f);
     }
 
     public override void ZeroAnimations() {

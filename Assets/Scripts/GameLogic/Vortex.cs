@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class Vortex : MonoBehaviour {
+    [SerializeField] AudioClip enterClip;
+
     private void Awake() {
         transform.localScale = new Vector3(0f, 0f, 0f);
     }
@@ -16,6 +18,8 @@ public class Vortex : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag(Strings.TAG_PLAYER)) {
+            AudioSource.PlayClipAtPoint(enterClip, transform.position, 1f);
+
             GameManager.LevelCleared();
 
             if (GameManager.levelCount == GameManager.maxLevel) {

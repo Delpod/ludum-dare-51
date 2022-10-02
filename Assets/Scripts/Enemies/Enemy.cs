@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float hitDelay = 0.2f;
     [SerializeField] float attackDelay = 1f;
     [SerializeField] bool destroyOnCollisionWithPlayer = false;
+    [SerializeField] AudioClip[] hitClips;
 
     private Player player;
     private float activeDelay = -1f;
@@ -105,6 +106,8 @@ public class Enemy : MonoBehaviour {
 
     public void GetDamage(int damage) {
         health -= damage;
+
+        AudioSource.PlayClipAtPoint(Helpers.RandomElement(hitClips), transform.position, 1f);
         
         if (health <= 0) {
             HandleDeath();

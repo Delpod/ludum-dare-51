@@ -357,7 +357,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e1d0f0d98a783114daee656b276b4f36, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3428,6 +3428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  attackSound: {fileID: 8300000, guid: c385339ea85298249b329c167a14a071, type: 3}
   bulletPrefab: {fileID: 8609177917565735250, guid: 3eb44781a84312a4187b434a04ed8fdc, type: 3}
   bulletSpeed: 500
 --- !u!95 &644874225
@@ -4365,6 +4366,11 @@ MonoBehaviour:
   maxHealth: 100
   healthBarSlider: {fileID: 469559944}
   audioSourceHeroTheme: {fileID: 870702508}
+  switchClip: {fileID: 8300000, guid: b8fbd476a3b09a849aa30eaaaeb46000, type: 3}
+  hurtClips:
+  - {fileID: 8300000, guid: 20b135e842e7dc540808a3a0d368a706, type: 3}
+  - {fileID: 8300000, guid: 0604ed7dfdb7d094d8bdf5d7030ec29e, type: 3}
+  - {fileID: 8300000, guid: d05b0e4a15a5fe84392a01b7e097f63c, type: 3}
   audioSourceAlive: {fileID: 870702507}
   currentCharacterId: 0
 --- !u!4 &870702503
@@ -4443,7 +4449,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b86cc14547389734bb4bd28e4a68e0ec, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.175
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4539,7 +4545,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.06
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6054,6 +6060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 35
+  attackSound: {fileID: 8300000, guid: d9d8b144e88e39c46a3731513b462b6c, type: 3}
 --- !u!224 &1254306047
 RectTransform:
   m_ObjectHideFlags: 0

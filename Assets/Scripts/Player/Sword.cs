@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 public class Sword : Weapon {
-
     private Animator animator;
     
     private void Start() {
@@ -10,6 +9,10 @@ public class Sword : Weapon {
     public override void Attack() {
         transform.parent.GetComponent<Character>().StopRotation();
         animator.SetTrigger(Strings.TRIGGER_ATTACK);
+    }
+
+    public void StartAttack() {
+        AudioSource.PlayClipAtPoint(attackSound, transform.position, 0.75f);
     }
 
     public void AttackFinished() {

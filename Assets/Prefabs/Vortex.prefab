@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d2401b60976594c8d085341cd4882c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enterClip: {fileID: 8300000, guid: 33aeea19272b64342a16a05afc24afdf, type: 3}
 --- !u!58 &6869368760501539588
 CircleCollider2D:
   m_ObjectHideFlags: 0

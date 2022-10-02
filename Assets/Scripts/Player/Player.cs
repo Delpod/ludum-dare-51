@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
     [SerializeField] int maxHealth = 100;
     [SerializeField] Slider healthBarSlider;
     [SerializeField] AudioSource audioSourceHeroTheme;
+    [SerializeField] AudioClip switchClip;
+    [SerializeField] AudioClip[] hurtClips;
 
     public AudioSource audioSourceAlive;
 
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour {
         health -= damage;
         UpdateSlider();
 
+        AudioSource.PlayClipAtPoint(Helpers.RandomElement(hurtClips), transform.position, 1f);
+
         if (health < 0f) {
             audioSourceAlive.Stop();
             GameManager.LoseGame();
@@ -66,6 +70,8 @@ public class Player : MonoBehaviour {
         }
 
         currentCharacter.ZeroAnimations();
+
+        AudioSource.PlayClipAtPoint(switchClip, transform.position, 0.75f);
 
         SetCharacterActive();
     }

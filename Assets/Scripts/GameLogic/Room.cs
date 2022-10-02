@@ -10,6 +10,7 @@ public class Room : MonoBehaviour {
     [SerializeField] Transform monsters;
     [SerializeField] int maxDifficulty = -1;
     [SerializeField] Vortex vortexPrefab;
+    [SerializeField] AudioClip doorOpenClip;
 
     public Vector2Int size;
     public float orthoSize = 5.6f;
@@ -76,6 +77,8 @@ public class Room : MonoBehaviour {
             gatesRight.Open();
 
             GameManager.RoomCleared();
+
+            AudioSource.PlayClipAtPoint(doorOpenClip, transform.position, 1f);
 
             if (lastRoom) {
                 GameObject go = Instantiate(vortexPrefab.gameObject, transform.position, Quaternion.identity, null);

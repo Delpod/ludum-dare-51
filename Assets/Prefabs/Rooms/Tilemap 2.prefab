@@ -4395,6 +4395,7 @@ MonoBehaviour:
   monsters: {fileID: 5192829122032089323}
   maxDifficulty: -1
   vortexPrefab: {fileID: 6869368760501539589, guid: 6d585efbc818f3d43a56e7c0a558d95b, type: 3}
+  doorOpenClip: {fileID: 8300000, guid: f90c4fa878fc8584894dd602a9d16a4c, type: 3}
   size: {x: 24, y: 14}
   orthoSize: 6.7
   lastRoom: 0
