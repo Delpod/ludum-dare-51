@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public void Attack() {
-        if (Vector3.SqrMagnitude(transform.position - player.transform.position) <= (hitDistance * hitDistance)) {
+        if (!markedForDeath && Vector3.SqrMagnitude(transform.position - player.transform.position) <= (hitDistance * hitDistance)) {
             player.GetDamage(damage);
         }
     }
@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (destroyOnCollisionWithPlayer && collision.collider.CompareTag(Strings.TAG_PLAYER)) {
             player.GetDamage(damage);
-            HandleDeath();
+            GetDamage(health);
         }
     }
 

@@ -64,6 +64,7 @@ public class Player : MonoBehaviour {
 
     private void UpdateSlider() {
         healthBarSlider.value = (float)health / maxHealth;
+        healthBarSlider.GetComponent<Animator>().SetTrigger(Strings.TRIGGER_SHAKE);
     }
 
     public void NextCharacter() {
@@ -93,5 +94,6 @@ public class Player : MonoBehaviour {
         p.SetCharacterActive();
         p.transform.position = Vector3.zero;
         p.audioSourceAlive.Play();
+        p.healthBarSlider.GetComponent<Animator>().SetTrigger(Strings.TRIGGER_RESTART_ANIMATION);
     }
 }

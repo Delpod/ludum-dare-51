@@ -37,7 +37,7 @@ public class Timer : MonoBehaviour {
         Timer timer = FindObjectOfType<Timer>();
         timer.time = 0f;
         if (timer.animator) {
-            timer.animator.SetTrigger(Strings.TRIGGER_RESTART_TIMER);
+            timer.animator.SetTrigger(Strings.TRIGGER_RESTART_ANIMATION);
         }
     }
 }
