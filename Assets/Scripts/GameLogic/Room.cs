@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour {
     [SerializeField] Gates[] gatesList;
@@ -9,6 +11,12 @@ public class Room : MonoBehaviour {
     [HideInInspector] public int roomDifficulty = 10;
     [HideInInspector] public int numberOfMonsters;
     [HideInInspector] public int monstersKilled;
+
+    private Tilemap tilemap;
+
+    private void Awake() {
+        tilemap = GetComponent<Tilemap>();
+    }
 
     public void Activate() {
         numberOfMonsters = monsters.childCount;
@@ -21,7 +29,20 @@ public class Room : MonoBehaviour {
     }
 
     public void CreateMonsters() {
-        // TODO: Generate monsters
+        List<Vector2Int> possiblePositions = new();
+
+        BoundsInt bounds = tilemap.cellBounds;
+        for (int i = bounds.x; i < bounds.xMax; ++i) {
+            for (int j = bounds.y; j < bounds.yMax; ++j) {
+                TileBase tileRule = tilemap.GetTile(new Vector3Int(i, j, 0));
+
+                if (ContentList.instance.availableTileList.Contains(tileRule)) {
+                    possiblePositions.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+
+        print(possiblePositions.Count);
     }
 
     public void MonsterKilled() {
