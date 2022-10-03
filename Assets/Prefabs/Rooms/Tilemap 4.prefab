@@ -5240,7 +5240,7 @@ MonoBehaviour:
   vortexPrefab: {fileID: 6869368760501539589, guid: 6d585efbc818f3d43a56e7c0a558d95b, type: 3}
   doorOpenClip: {fileID: 8300000, guid: f90c4fa878fc8584894dd602a9d16a4c, type: 3}
   size: {x: 26, y: 16}
-  orthoSize: 7.1
+  orthoSize: 7.3
   lastRoom: 0
   roomDifficulty: 10
   numberOfMonsters: 0

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     static public int roomCount;
     static public int itemCount;
     static public int levelCount;
-    static public readonly int maxLevel = 3;
+    static public readonly int maxLevel = 4;
 
     private void Start() {
         if (instance == null || this == instance) {
