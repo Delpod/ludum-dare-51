@@ -27,17 +27,40 @@ public class Gates : MonoBehaviour {
             return;
         }
 
-        targetY = 1.75f;
+        targetY = 1.8f;
+        opened = true;
     }
 
     public void Close() {
         targetY = 1f;
+        opened = false;
     }
 
     private void Update() {
         if (!Mathf.Approximately(topGate.localPosition.y, targetY)) {
             topGate.localPosition = new Vector3(topGate.localPosition.x, Mathf.MoveTowards(topGate.localPosition.y, targetY, Time.deltaTime * openSpeed), 0f);
             bottomGate.localPosition = new Vector3(bottomGate.localPosition.x, Mathf.MoveTowards(bottomGate.localPosition.y, -targetY, Time.deltaTime * openSpeed), 0f);
+
+            if (Mathf.Approximately(topGate.localPosition.y, targetY)) {
+                if (opened) {
+                    foreach (BoxCollider2D bc in GetComponentsInChildren<BoxCollider2D>(true)) {
+                        bc.enabled = false;
+                    }
+
+                    foreach (CapsuleCollider2D bc in GetComponentsInChildren<CapsuleCollider2D>(true)) {
+                        bc.enabled = true;
+                    }
+                } else {
+                    foreach (BoxCollider2D bc in GetComponentsInChildren<BoxCollider2D>(true)) {
+                        bc.enabled = true;
+                    }
+
+                    foreach (CapsuleCollider2D bc in GetComponentsInChildren<CapsuleCollider2D>(true)) {
+                        bc.enabled = false;
+                    }
+                }
+            }
+
         }
     }
 }

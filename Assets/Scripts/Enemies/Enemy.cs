@@ -75,6 +75,10 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void LateUpdate() {
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+    }
+
     private void FixedUpdate() {
         myRenderer.flipX = player.transform.position.x > transform.position.x;
 
