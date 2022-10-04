@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour {
                 StartShooting();
             }
         } else {
-            if (Vector3.SqrMagnitude(transform.position - player.transform.position) > (stopDistance * stopDistance)) {
+            if (Vector3.SqrMagnitude(new Vector3(transform.position.x, transform.position.y, 0f) - player.transform.position) > (stopDistance * stopDistance)) {
                 animator.SetBool(Strings.TRIGGER_WALKING, true);
             } else if (activeAttackDelay <= 0f) {
                 StartAttack();
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour {
 
             go.GetComponent<Bullet>().damage = damage;
             go.GetComponent<Rigidbody2D>().AddForce(go.transform.up * bulletSpeed);
-        } else if (Vector3.SqrMagnitude(transform.position - player.transform.position) <= (hitDistance * hitDistance)) {
+        } else if (Vector3.SqrMagnitude(new Vector3(transform.position.x, transform.position.y, 0f) - player.transform.position) <= (hitDistance * hitDistance)) {
             player.GetDamage(damage);
         }
     }
