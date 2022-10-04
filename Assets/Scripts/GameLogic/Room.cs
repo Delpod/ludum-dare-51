@@ -12,6 +12,7 @@ public class Room : MonoBehaviour {
     [SerializeField] Vortex vortexPrefab;
     [SerializeField] AudioClip doorOpenClip;
 
+    public Transform followTransform;
     public Vector2Int size;
     public float orthoSize = 5.6f;
 
@@ -75,8 +76,14 @@ public class Room : MonoBehaviour {
 
         if (monstersKilled == numberOfMonsters) {
             gatesTop.Open();
-            gatesLeft.Open();
-            gatesRight.Open();
+
+            if (gatesLeft) {
+                gatesLeft.Open();
+            }
+
+            if (gatesRight) {
+                gatesRight.Open();
+            }
 
             GameManager.RoomCleared();
             AudioSource.PlayClipAtPoint(doorOpenClip, transform.position, 1f);

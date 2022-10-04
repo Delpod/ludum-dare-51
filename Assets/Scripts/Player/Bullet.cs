@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (hitEnemy && other.CompareTag(Strings.TAG_ENEMY)) {
-            other.GetComponent<Enemy>().GetDamage(damage);
+            other.GetComponent<Enemy>().GetDamage((int)(PickupManager.instance.gunDamagePercent * damage));
         } else if (!hitEnemy && other.CompareTag(Strings.TAG_PLAYER)) {
             other.GetComponent<Player>().GetDamage(damage);
         }

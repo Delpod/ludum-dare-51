@@ -67,7 +67,7 @@ public class RoomManager : MonoBehaviour {
         }
 
         activeRoom = room;
-        cmVC.Follow = activeRoom.transform;
+        cmVC.Follow = activeRoom.followTransform;
         cmVC.m_Lens.OrthographicSize = activeRoom.orthoSize;
 
         TilemapCollider2D tilemapCollider2D = activeRoom.GetComponent<TilemapCollider2D>();

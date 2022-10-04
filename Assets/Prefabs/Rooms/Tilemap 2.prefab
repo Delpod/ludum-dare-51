@@ -880,6 +880,7 @@ Transform:
   - {fileID: 8569604426502573040}
   - {fileID: 5192829120960760331}
   - {fileID: 5192829120454687672}
+  - {fileID: 3956713568117465023}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4501,6 +4502,7 @@ MonoBehaviour:
   maxDifficulty: -1
   vortexPrefab: {fileID: 6869368760501539589, guid: 6d585efbc818f3d43a56e7c0a558d95b, type: 3}
   doorOpenClip: {fileID: 8300000, guid: f90c4fa878fc8584894dd602a9d16a4c, type: 3}
+  followTransform: {fileID: 3956713568117465023}
   size: {x: 24, y: 14}
   orthoSize: 6.7
   lastRoom: 0
@@ -5026,6 +5028,37 @@ MonoBehaviour:
   openSpeed: 2
   openable: 1
   opened: 0
+--- !u!1 &6700050378348984374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3956713568117465023}
+  m_Layer: 8
+  m_Name: FollowTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3956713568117465023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6700050378348984374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5192829121675755573}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6962627132651660195
 GameObject:
   m_ObjectHideFlags: 0

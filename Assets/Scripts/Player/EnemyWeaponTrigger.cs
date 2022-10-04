@@ -9,7 +9,7 @@ public class EnemyWeaponTrigger : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag(Strings.TAG_ENEMY)) {
-            other.GetComponent<Enemy>().GetDamage(damage);
+            other.GetComponent<Enemy>().GetDamage((int)(PickupManager.instance.swordDamagePercent * damage));
         }
     }
 }
