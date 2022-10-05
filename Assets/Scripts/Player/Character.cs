@@ -11,17 +11,20 @@ public class Character : MonoBehaviour {
 
     public int defaultDamage = 25;
     public AudioClip audioClip;
-    public float currentSpeed = 10f;
-    public bool isAttacking = false;
 
+    [HideInInspector] public float currentSpeed = 10f;
+
+    private bool isAttacking = false;
     private Animator animator;
     private Vector2 mousePos;
     private float delay = -1f;
     private Camera mainCamera;
+    private SpriteRenderer weaponSpriteRenderer;
 
     private void Start() {
         mainCamera = Camera.main;
         animator = GetComponent<Animator>();
+        weaponSpriteRenderer = weapon.GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Attack() {
@@ -45,20 +48,25 @@ public class Character : MonoBehaviour {
             return;
         }
 
+        float angle;
+
         if (InputManager.instance.playerInput.currentControlScheme != Strings.SCHEME_KEYBOARD_MOUSE) {
             Vector2 tmpPos = InputManager.instance.playerInput.actions[Strings.PLAYER_LOOK].ReadValue<Vector2>();
             if (!Mathf.Approximately(tmpPos.x, 0f) || !Mathf.Approximately(tmpPos.y, 0f)) {
                 mousePos = tmpPos;
             }
 
-            weapon.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(mousePos.x) * Vector3.Angle(transform.up, new Vector3(mousePos.x, mousePos.y)), 1080f * Time.deltaTime));
+            angle = Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(mousePos.x) * Vector3.Angle(transform.up, new Vector3(mousePos.x, mousePos.y)), 1080f * Time.deltaTime);
         } else {
             Vector2 mousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector3 dir = new Vector3(mousePos.x, mousePos.y) - transform.position;
             dir.z = 0f;
 
-            weapon.transform.rotation = Quaternion.Euler(0f, 0f, Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(dir.x) * Vector3.Angle(transform.up, dir), 1080f * Time.deltaTime));
+            angle = Mathf.MoveTowardsAngle(weapon.transform.rotation.eulerAngles.z, -Mathf.Sign(dir.x) * Vector3.Angle(transform.up, dir), 1080f * Time.deltaTime);
         }
+
+        weapon.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        weaponSpriteRenderer.flipX = angle >= 0f;
     }
 
     public void StopRotation() {

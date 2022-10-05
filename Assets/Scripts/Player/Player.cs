@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
     }
 
     public void GetDamage(int damage, bool useModifier = true) {
-        health = Mathf.Min(health - (useModifier ? (int)(damage * damageModifier) : damage), maxHealth);
+        health = Mathf.Min(health - (useModifier ? (int)(damage * (damageModifier * PickupManager.instance.armorPercent)) : damage), maxHealth);
         UpdateSlider();
 
         if (damage > 0) {

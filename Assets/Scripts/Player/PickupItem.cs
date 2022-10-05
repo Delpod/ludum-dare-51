@@ -31,7 +31,7 @@ public class PickupItem : MonoBehaviour {
             }
             GetComponent<CircleCollider2D>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
-            Destroy(gameObject, 1f);
+            Destroy(gameObject);
         }
     }
 }
