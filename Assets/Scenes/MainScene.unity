@@ -1097,9 +1097,19 @@ MonoBehaviour:
   - {fileID: 6947568957616493352, guid: 60ddd403bef1ce0449eab7536c1b2493, type: 3}
   - {fileID: 6947568957616493352, guid: 2b9a5700eaf209c49a5e87eb4060b2ca, type: 3}
   - {fileID: 6947568957616493352, guid: 02275c30963292745994d35acc7a6608, type: 3}
-  prefabMicroRooms: []
+  prefabMicrorooms:
+  - {fileID: 6947568957616493352, guid: 77916662ee3e8b440a6e849d3f4bf22d, type: 3}
+  - {fileID: 6947568957616493352, guid: 3d961f19ca5606a4bb4169eab7d74ca7, type: 3}
+  - {fileID: 6947568957616493352, guid: 874e70884a7c4654fbbb2febb6db4f92, type: 3}
+  upgradePrefabs:
+  - {fileID: 5537328212574004351, guid: 9c66a23dcbef702479f2265916f9fd2a, type: 3}
+  - {fileID: 7270584819253975654, guid: 9f25e3b3418353241b3b451111dcd287, type: 3}
+  - {fileID: 5864712421013639225, guid: 6e3eabcf84f28c740b3ce8c903b75b30, type: 3}
+  - {fileID: 4743011570695007327, guid: 193867386de42534891869104f7f6d9f, type: 3}
   minRooms: 5
   maxRooms: 7
+  microroomProbability: 0.33333334
+  microroomProbabilityUpgrade: 0.5
   startDifficulty: 8
   roomList: []
   difficulty: 8

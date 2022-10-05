@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     static public int itemCount;
     static public int levelCount;
     static public readonly int maxLevel = 4;
+    static public bool hadFirstUpgrade = false;
 
     private void Start() {
         if (instance == null || this == instance) {
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
         UIManager.instance.loseMenuCanvas.gameObject.SetActive(false);
         UIManager.instance.winMenuCanvas.gameObject.SetActive(false);
         UIManager.instance.ingameUICanvas.gameObject.SetActive(true);
+        hadFirstUpgrade = false;
         RoomManager rm = FindObjectOfType<RoomManager>();
         rm.difficulty = rm.startDifficulty;
         rm.CreateRooms(true);

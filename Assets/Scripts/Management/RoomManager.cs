@@ -5,14 +5,19 @@ using UnityEngine.Tilemaps;
 
 public class RoomManager : MonoBehaviour {
     [SerializeField] Room[] prefabRooms;
-    [SerializeField] Room[] prefabMicroRooms;
+    [SerializeField] Room[] prefabMicrorooms;
+    [SerializeField] GameObject[] upgradePrefabs;
     [SerializeField] int minRooms = 4;
     [SerializeField] int maxRooms = 7;
+    [Range(0f, 1f)]
+    [SerializeField] float microroomProbability = 0.3f;
+    [Range(0f, 1f)]
+    [SerializeField] float microroomProbabilityUpgrade = 0.5f;
 
     public int startDifficulty = 7;
     [HideInInspector] public List<Room> roomList = new List<Room>();
     [HideInInspector] public int difficulty;
-    [HideInInspector] public Room activeRoom;
+    public Room activeRoom;
 
     private CinemachineVirtualCamera cmVC;
 
@@ -34,7 +39,6 @@ public class RoomManager : MonoBehaviour {
         }
 
         int roomCount = Random.Range(minRooms, maxRooms + 1);
-        int microRoomCount = Random.Range(0, roomCount / 2 - 1);
 
         for (int i = 0; i < roomCount; ++i) {
             Room prefab = Helpers.RandomElement(prefabRooms);
@@ -42,8 +46,26 @@ public class RoomManager : MonoBehaviour {
             GameObject go = Instantiate(prefab.gameObject, roomPos, Quaternion.identity, transform);
             go.SetActive(true);
             Room r = go.GetComponent<Room>();
-            r.TopOpenable(false);
             r.roomDifficulty = difficulty;
+
+            if (i != 0 && i != roomCount -1 && Random.Range(0f, 1f) < microroomProbability) {
+                Room microPrefab = Helpers.RandomElement(prefabMicrorooms);
+                roomPos += new Vector3(0f, (r.size.y + microPrefab.size.y) / 2f + 1f, 0f);
+                go = Instantiate(microPrefab.gameObject, roomPos, Quaternion.identity, transform);
+                go.SetActive(true);
+                Room micro = go.GetComponent<Room>();
+
+                if (!GameManager.hadFirstUpgrade || microroomProbabilityUpgrade < Random.Range(0f, 1f)) {
+                    GameObject upgradePrefab = Helpers.RandomElement(upgradePrefabs);
+                    Instantiate(upgradePrefab, micro.followTransform.transform.position, Quaternion.identity, null);
+                    GameManager.hadFirstUpgrade = true;
+                } else {
+                    micro.roomDifficulty = difficulty / 2;
+                    micro.CreateMonsters();
+                }
+            } else {
+                r.TopOpenable(false);
+            }
 
             if (i == 0) {
                 r.roomDifficulty = 0;
@@ -73,8 +95,7 @@ public class RoomManager : MonoBehaviour {
         TilemapCollider2D tilemapCollider2D = activeRoom.GetComponent<TilemapCollider2D>();
 
         AstarPath.active.data.gridGraph.center = tilemapCollider2D.bounds.center;
-        AstarPath.active.data.gridGraph.width = (int)tilemapCollider2D.bounds.size.x;
-        AstarPath.active.data.gridGraph.depth = (int)tilemapCollider2D.bounds.size.y;
+        AstarPath.active.data.gridGraph.SetDimensions((int)tilemapCollider2D.bounds.size.x, (int)tilemapCollider2D.bounds.size.y, 1);
         AstarPath.active.Scan();
 
         // TODO: Should be set for whole level and then scanned
