@@ -1,7 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.Tilemaps;
 
 public class RoomManager : MonoBehaviour {
     [SerializeField] Room[] prefabRooms;
@@ -17,7 +17,7 @@ public class RoomManager : MonoBehaviour {
     public int startDifficulty = 7;
     [HideInInspector] public List<Room> roomList = new List<Room>();
     [HideInInspector] public int difficulty;
-    public Room activeRoom;
+    [HideInInspector] public Room activeRoom;
 
     private CinemachineVirtualCamera cmVC;
 
@@ -39,6 +39,11 @@ public class RoomManager : MonoBehaviour {
         }
 
         int roomCount = Random.Range(minRooms, maxRooms + 1);
+        int minX, maxX, minY, maxY;
+
+        List<Room> microRoomsList = new();
+
+        // This is a mess
 
         for (int i = 0; i < roomCount; ++i) {
             Room prefab = Helpers.RandomElement(prefabRooms);
@@ -63,6 +68,7 @@ public class RoomManager : MonoBehaviour {
                     micro.roomDifficulty = difficulty / 2;
                     micro.CreateMonsters();
                 }
+                microRoomsList.Add(micro);
             } else {
                 r.TopOpenable(false);
             }
@@ -80,7 +86,30 @@ public class RoomManager : MonoBehaviour {
             roomList.Add(r);
         }
 
+        minX = (int)roomList[0].followTransform.position.x - roomList[0].size.x / 2;
+        maxX = (int)roomList[roomList.Count - 1].followTransform.position.x + roomList[roomList.Count - 1].size.x / 2;
+        minY = (int)roomList[0].followTransform.position.y - roomList[0].size.y / 2;
+        maxY = (int)roomList[0].followTransform.position.y + roomList[0].size.y / 2;
+
+        roomList.AddRange(microRoomsList);
+
+        foreach (Room r in roomList) {
+            int y1 = (int)r.followTransform.position.y - r.size.y / 2;
+            int y2 = (int)r.followTransform.position.y + r.size.y / 2;
+            if (y1 < minY) {
+                minY = y1;
+            }
+
+            if (y2 > maxY) {
+                maxY = y2;
+            }
+        }
+
         SwitchActiveRoom(roomList[0]);
+
+        AstarPath.active.data.gridGraph.center = new Vector3((minX + maxX) / 2f, Mathf.Round((minY + maxY) / 2f), 0f);
+        AstarPath.active.data.gridGraph.SetDimensions(maxX - minX, maxY - minY, 1);
+        StartCoroutine(ScanMap());
     }
 
     public bool SwitchActiveRoom(Room room) {
@@ -92,16 +121,13 @@ public class RoomManager : MonoBehaviour {
         cmVC.Follow = activeRoom.followTransform;
         cmVC.m_Lens.OrthographicSize = activeRoom.orthoSize;
 
-        TilemapCollider2D tilemapCollider2D = activeRoom.GetComponent<TilemapCollider2D>();
-
-        AstarPath.active.data.gridGraph.center = tilemapCollider2D.bounds.center;
-        AstarPath.active.data.gridGraph.SetDimensions((int)tilemapCollider2D.bounds.size.x, (int)tilemapCollider2D.bounds.size.y, 1);
-        AstarPath.active.Scan();
-
-        // TODO: Should be set for whole level and then scanned
-
         activeRoom.Activate();
 
         return true;
+    }
+
+    private IEnumerator ScanMap() {
+        yield return null;
+        AstarPath.active.Scan();
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4743011570695007322}
   - component: {fileID: 4743011570695007324}
   - component: {fileID: 6347504856565812475}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SwordPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

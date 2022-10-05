@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour {
     static public int roomCount;
     static public int itemCount;
     static public int levelCount;
-    static public readonly int maxLevel = 4;
+    static public readonly int maxLevel = 1;
     static public bool hadFirstUpgrade = false;
+    static public float time;
 
     private void Start() {
         if (instance == null || this == instance) {
@@ -26,12 +27,9 @@ public class GameManager : MonoBehaviour {
     }
 
     static public void StartGame() {
-        Time.timeScale = 1f;
         InputManager.instance.playerInput.SwitchCurrentActionMap(Strings.ACTION_MAP_PLAYER);
-        UIManager.instance.startMenuCanvas.gameObject.SetActive(false);
-        UIManager.instance.loseMenuCanvas.gameObject.SetActive(false);
-        UIManager.instance.winMenuCanvas.gameObject.SetActive(false);
         UIManager.instance.ingameUICanvas.gameObject.SetActive(true);
+        Time.timeScale = 1f;
         hadFirstUpgrade = false;
         RoomManager rm = FindObjectOfType<RoomManager>();
         rm.difficulty = rm.startDifficulty;
@@ -40,7 +38,13 @@ public class GameManager : MonoBehaviour {
         roomCount = 0;
         levelCount = 0;
         itemCount = 0;
+        PickupManager.instance.Reset();
+        UIManager.instance.upgradeMenuCanvas.gameObject.SetActive(false);
+        UIManager.instance.startMenuCanvas.gameObject.SetActive(false);
+        UIManager.instance.loseMenuCanvas.gameObject.SetActive(false);
+        UIManager.instance.winMenuCanvas.gameObject.SetActive(false);
         state = GameState.Playing;
+        time = Time.time;
     }
 
     static public void LoseGame() {

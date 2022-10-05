@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5537328212574004346}
   - component: {fileID: 5537328212574004348}
   - component: {fileID: 8997721628704738398}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArmorPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

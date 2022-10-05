@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class PickupManager : MonoBehaviour {
     [SerializeField] Image armorUpgradeImage;
     [SerializeField] Image swordUpgradeImage;
     [SerializeField] Image gunUpgradeImage;
+    [SerializeField] TMP_Text messageText;
     [SerializeField] ParticleSystem healthParticles;
     [SerializeField] ParticleSystem armorParticles;
     [SerializeField] ParticleSystem swordParticles;
@@ -24,12 +26,29 @@ public class PickupManager : MonoBehaviour {
     private TMP_Text armorUpgradeText;
     private TMP_Text swordUpgradeText;
     private TMP_Text gunUpgradeText;
+    private WaitForSeconds messageWait = new(5f);
+
+    private readonly string messageHealth = "25 health restored";
+    private readonly string messageArmor = "-50% damage taken for next 30s";
+    private readonly string messageSword = "+50% sword damage for next 30s";
+    private readonly string messageGun = "+50% gun damage for next 30s";
 
     private void Awake() {
         instance = this;
         armorUpgradeText = armorUpgradeImage.GetComponentInChildren<TMP_Text>();
         swordUpgradeText = swordUpgradeImage.GetComponentInChildren<TMP_Text>();
         gunUpgradeText = gunUpgradeImage.GetComponentInChildren<TMP_Text>();
+    }
+
+    public void Reset() {
+        messageText.gameObject.SetActive(false);
+        armorPercent = 1f;
+        swordDamagePercent = 1f;
+        gunDamagePercent = 1f;
+        armorTime = 0f;
+        swordDamageTime = 0f;
+        gunDamageTime = 0f;
+        StopAllCoroutines();
     }
 
     private void Update() {
@@ -67,6 +86,10 @@ public class PickupManager : MonoBehaviour {
     public void AddHealth(float amount) {
         Player player = FindObjectOfType<Player>();
         player.GetDamage((int)-amount);
+        messageText.text = messageHealth;
+        messageText.gameObject.SetActive(true);
+        StartCoroutine(HideMessage());
+        GameManager.ItemPickedUp();
         GameObject go = Instantiate(healthParticles.gameObject, player.transform);
         Destroy(go, particlesLength);
     }
@@ -76,6 +99,10 @@ public class PickupManager : MonoBehaviour {
         armorTime = time;
         armorUpgradeImage.gameObject.SetActive(true);
         armorUpgradeText.text = time.ToString("0");
+        messageText.text = messageArmor;
+        messageText.gameObject.SetActive(true);
+        StartCoroutine(HideMessage());
+        GameManager.ItemPickedUp();
         GameObject go = Instantiate(armorParticles.gameObject, FindObjectOfType<Player>().transform);
         Destroy(go, particlesLength);
     }
@@ -85,6 +112,10 @@ public class PickupManager : MonoBehaviour {
         swordDamageTime = time;
         swordUpgradeImage.gameObject.SetActive(true);
         swordUpgradeText.text = time.ToString("0");
+        messageText.text = messageSword;
+        messageText.gameObject.SetActive(true);
+        StartCoroutine(HideMessage());
+        GameManager.ItemPickedUp();
         GameObject go = Instantiate(swordParticles.gameObject, FindObjectOfType<Player>().transform);
         Destroy(go, particlesLength);
     }
@@ -94,7 +125,16 @@ public class PickupManager : MonoBehaviour {
         gunDamageTime = time;
         gunUpgradeImage.gameObject.SetActive(true);
         gunUpgradeText.text = time.ToString("0");
+        messageText.text = messageGun;
+        messageText.gameObject.SetActive(true);
+        StartCoroutine(HideMessage());
+        GameManager.ItemPickedUp();
         GameObject go = Instantiate(gunParticles.gameObject, FindObjectOfType<Player>().transform);
         Destroy(go, particlesLength);
+    }
+
+    private IEnumerator HideMessage() {
+        yield return messageWait;
+        messageText.gameObject.SetActive(false);
     }
 }

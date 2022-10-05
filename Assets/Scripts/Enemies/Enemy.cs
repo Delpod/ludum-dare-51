@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour {
     private void FixedUpdate() {
         myRenderer.flipX = player.transform.position.x > transform.position.x;
 
-        if (isShooting) {
+        if (isShooting && activeAttackDelay < 0f) {
             RaycastHit2D raycastHit = Physics2D.CircleCast(transform.position, 0.2f, player.transform.position - transform.position, 100f, raycastMask.value);
             if (raycastHit.transform && raycastHit.transform.CompareTag(Strings.TAG_PLAYER)) {
                 aiPath.canMove = false;
