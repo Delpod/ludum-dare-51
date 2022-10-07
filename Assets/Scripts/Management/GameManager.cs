@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     static public int roomCount;
     static public int itemCount;
     static public int levelCount;
-    static public readonly int maxLevel = 1;
+    static public readonly int maxLevel = 4;
     static public bool hadFirstUpgrade = false;
     static public float time;
 
